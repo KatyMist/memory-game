@@ -1,15 +1,5 @@
 import { createElement } from '../utils/create-element.js';
-import { createIcon } from './icon.js';
-
-function createHeaderButton({ text, icon, modifier, onClick }) {
-  const button = createElement('button', {
-    className: ['button', `button--${modifier}`],
-    attrs: { type: 'button' },
-    children: [createIcon(icon), createElement('span', { text })],
-  });
-  button.addEventListener('click', onClick);
-  return button;
-}
+import { createButton } from './button.js';
 
 /**
  * Хедер: логотип, счётчики и кнопки «Новая игра» и «Таблица лидеров».
@@ -30,16 +20,16 @@ export function createHeader({ statsElement, onNewGame, onLeaderboard }) {
   const actions = createElement('div', {
     className: 'header__actions',
     children: [
-      createHeaderButton({
+      createButton({
         text: 'Новая игра',
         icon: 'refresh',
-        modifier: 'primary',
+        variant: 'primary',
         onClick: onNewGame,
       }),
-      createHeaderButton({
+      createButton({
         text: 'Таблица лидеров',
         icon: 'trophy',
-        modifier: 'outline',
+        variant: 'outline',
         onClick: onLeaderboard,
       }),
     ],

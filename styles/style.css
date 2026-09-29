@@ -365,3 +365,103 @@ button {
     padding-top: 24px;
   }
 }
+
+/* Модальное окно (общее для победы и таблицы лидеров) */
+.scroll-lock {
+  overflow: hidden;
+}
+
+.modal {
+  width: min(calc(100% - 32px), 460px);
+  max-height: calc(100% - 32px);
+  padding: 0;
+  border: none;
+  border-radius: 28px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 24px 60px rgb(46 49 96 / 0.25);
+}
+
+.modal[open] {
+  animation: modal-in 0.25s ease-out;
+}
+
+.modal::backdrop {
+  background: rgb(46 49 96 / 0.45);
+  backdrop-filter: blur(3px);
+}
+
+.modal[open]::backdrop {
+  animation: backdrop-in 0.25s ease-out;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 28px 28px;
+  text-align: center;
+  background:
+    url('../assets/decor/sparkle.svg') 14% 18% / 22px no-repeat,
+    url('../assets/decor/sparkle.svg') 86% 26% / 16px no-repeat,
+    linear-gradient(180deg, #eef2fe 0%, #ffffff 45%);
+}
+
+.modal__picture {
+  display: block;
+  width: 120px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.modal__title {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.modal__text {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+.modal__result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 24px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.modal__result-value {
+  display: inline-grid;
+  place-items: center;
+  min-width: 56px;
+  height: 56px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 1.6rem;
+}
+
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}

@@ -3,6 +3,9 @@ import { createDeck } from '../utils/deck.js';
 /** Через сколько миллисекунд закрывается несовпавшая пара (по заданию 700–1500). */
 export const MISMATCH_DELAY = 1000;
 
+/** Пауза перед окном победы, чтобы успела доиграть анимация переворота последней карточки. */
+const WIN_DELAY = 500;
+
 /**
  * Игровая логика: состояние партии и реакция на клики по карточкам.
  *
@@ -57,7 +60,11 @@ export function createGame({ images, board, stats, onWin = () => {} }) {
 
     if (state.pairs === totalPairs) {
       state.isFinished = true;
-      onWin(state.moves);
+      // Таймер хранится в state.timerId, поэтому «Новая игра» отменит и его
+      state.timerId = setTimeout(() => {
+        state.timerId = null;
+        onWin(state.moves);
+      }, WIN_DELAY);
     }
   }
 
