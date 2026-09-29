@@ -1,0 +1,588 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #f6f6fb;
+  --color-surface: #ffffff;
+  --color-text: #2e3160;
+  --color-muted: #8a8fb0;
+  --color-accent: #6b82ee;
+  --color-accent-dark: #5870e2;
+  --color-pill: #eef1fb;
+  --radius-card: 22px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 8px 24px rgb(107 130 238 / 0.18);
+  font-family: 'Balsamiq Sans', 'Comic Sans MS', system-ui, sans-serif;
+  color: var(--color-text);
+}
+
+html {
+  background: var(--color-bg);
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Декоративный фон: облака, звёздочки, листочки */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url('../assets/decor/sparkle.svg') 9% 38% / 30px no-repeat,
+    url('../assets/decor/sparkle.svg') 82% 60% / 28px no-repeat,
+    url('../assets/decor/leaves.svg') 10% 66% / 36px no-repeat,
+    url('../assets/decor/leaves.svg') 87% 34% / 32px no-repeat,
+    url('../assets/decor/cloud-top.svg') left top / min(34vw, 380px) no-repeat,
+    url('../assets/decor/cloud-left.svg') left bottom / min(42vw, 560px) no-repeat,
+    url('../assets/decor/cloud-right.svg') right bottom / min(42vw, 560px) no-repeat,
+    linear-gradient(180deg, #f3f6fd 0%, #f8f6f8 100%);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Иконки: форма из SVG через mask, цвет — currentColor */
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.15em;
+  height: 1.15em;
+  background-color: currentColor;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.icon--refresh {
+  --icon: url('../assets/icons/refresh.svg');
+}
+
+.icon--trophy {
+  --icon: url('../assets/icons/trophy.svg');
+}
+
+/* Кнопки */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:focus-visible {
+  outline: 3px solid rgb(107 130 238 / 0.45);
+  outline-offset: 3px;
+}
+
+.button--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.button--primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.button--outline {
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.button--outline:hover {
+  background: #f3f5ff;
+}
+
+/* Хедер */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgb(120 130 200 / 0.08);
+}
+
+.header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;
+}
+
+.header__logo {
+  display: block;
+  width: 64px;
+  height: auto;
+}
+
+.header__title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Счётчики */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--color-pill);
+}
+
+.stats__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.stats__label {
+  color: var(--color-muted);
+}
+
+.stats__badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.stats__value {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Основная часть */
+.main {
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+/* Игровое поле */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(8px, 2vw, 22px);
+  /* Поле квадратное: подстраиваем ширину под высоту экрана, но не меньше 520px и не больше 820px */
+  width: min(100%, 820px, max(520px, calc(100svh - 150px)));
+  margin: 0 auto;
+}
+
+/* Карточка */
+.card {
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-card);
+  background: none;
+  perspective: 900px;
+  transition: transform 0.2s;
+}
+
+.card:not(.card--open):hover {
+  transform: translateY(-3px);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.card--open,
+.card--matched {
+  cursor: default;
+}
+
+.card__inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.card--open .card__inner {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  backface-visibility: hidden;
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / 0.55),
+    0 8px 18px rgb(110 120 200 / 0.22);
+}
+
+.card__face--back {
+  background: url('../assets/card-back.svg') center / cover no-repeat;
+}
+
+.card__face--front {
+  background: var(--card-color, #ffffff);
+  transform: rotateY(180deg);
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.card__symbol {
+  font-size: clamp(2rem, 9vw, 5.5rem);
+  line-height: 1;
+}
+
+.card--matched .card__face--front {
+  box-shadow:
+    inset 0 0 0 3px rgb(255 255 255 / 0.85),
+    0 0 0 3px rgb(107 130 238 / 0.35),
+    0 8px 18px rgb(110 120 200 / 0.22);
+}
+
+/* Адаптив */
+@media (max-width: 1100px) {
+  .header__inner {
+    justify-content: center;
+  }
+
+  .header__brand {
+    margin-right: 0;
+  }
+
+  .stats {
+    order: 3;
+  }
+}
+
+@media (max-width: 520px) {
+  body::before {
+    background:
+      url('../assets/decor/cloud-left.svg') left bottom / 70vw no-repeat,
+      url('../assets/decor/cloud-right.svg') right bottom / 70vw no-repeat,
+      linear-gradient(180deg, #f3f6fd 0%, #f8f6f8 100%);
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .header {
+    position: static;
+  }
+
+  .header__inner {
+    gap: 12px;
+  }
+
+  .header__actions {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .header__logo {
+    width: 48px;
+  }
+
+  .button {
+    gap: 6px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+
+  .stats {
+    gap: 18px;
+    padding: 6px 16px;
+  }
+
+  .main {
+    padding-top: 24px;
+  }
+}
+
+/* Модальное окно (общее для победы и таблицы лидеров) */
+.scroll-lock {
+  overflow: hidden;
+}
+
+.modal {
+  width: min(calc(100% - 32px), 460px);
+  max-height: calc(100% - 32px);
+  padding: 0;
+  border: none;
+  border-radius: 28px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 24px 60px rgb(46 49 96 / 0.25);
+}
+
+.modal[open] {
+  animation: modal-in 0.25s ease-out;
+}
+
+.modal::backdrop {
+  background: rgb(46 49 96 / 0.45);
+  backdrop-filter: blur(3px);
+}
+
+.modal[open]::backdrop {
+  animation: backdrop-in 0.25s ease-out;
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 28px 28px;
+  text-align: center;
+  background:
+    url('../assets/decor/sparkle.svg') 12% 32px / 22px no-repeat,
+    url('../assets/decor/sparkle.svg') 88% 56px / 16px no-repeat,
+    linear-gradient(180deg, #eef2fe 0%, #ffffff 45%);
+}
+
+.modal__picture {
+  display: block;
+  width: 120px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.modal__title {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.modal__text {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+.modal__result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 24px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.modal__result-value {
+  display: inline-grid;
+  place-items: center;
+  min-width: 56px;
+  height: 56px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: #ffffff;
+  font-size: 1.6rem;
+}
+
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Иконка в шапке модального окна */
+.modal__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: var(--color-pill);
+  color: var(--color-accent);
+  font-size: 1.8rem;
+}
+
+/* Таблица лидеров */
+.leaderboard {
+  width: 100%;
+  margin: 8px 0 24px;
+}
+
+.leaderboard__empty {
+  padding: 24px 12px;
+  border-radius: 18px;
+  background: var(--color-pill);
+}
+
+.leaderboard__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  font-size: 1.05rem;
+}
+
+.leaderboard__table th {
+  padding: 0 12px 4px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.leaderboard__table td {
+  padding: 6px 12px;
+  background: #f5f7fe;
+}
+
+.leaderboard__table td:first-child {
+  border-radius: 14px 0 0 14px;
+}
+
+.leaderboard__table td:last-child {
+  border-radius: 0 14px 14px 0;
+}
+
+.leaderboard__place {
+  width: 72px;
+}
+
+.leaderboard__moves {
+  font-weight: 700;
+}
+
+.leaderboard__date {
+  color: var(--color-muted);
+}
+
+.leaderboard__badge {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: 700;
+  background: #e3e7f7;
+  color: var(--color-text);
+}
+
+.leaderboard__badge--1 {
+  background: #ffd76a;
+}
+
+.leaderboard__badge--2 {
+  background: #d9dde8;
+}
+
+.leaderboard__badge--3 {
+  background: #f1bd92;
+}
+
+@media (max-width: 520px) {
+  .modal__content {
+    padding: 24px 16px 20px;
+  }
+
+  .modal__title {
+    font-size: 1.6rem;
+  }
+
+  .modal__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 6px;
+    font-size: 1.4rem;
+  }
+
+  .leaderboard {
+    margin-bottom: 16px;
+  }
+
+  .leaderboard__table {
+    font-size: 0.95rem;
+  }
+
+  .leaderboard__table td {
+    padding: 4px 8px;
+  }
+
+  .leaderboard__badge {
+    width: 26px;
+    height: 26px;
+  }
+}
