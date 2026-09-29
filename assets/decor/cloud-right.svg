@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320">
+  <defs><filter id="b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4"/></filter></defs>
+  <g transform="translate(500 0) scale(-1 1)"><g fill="#dfe7fa" filter="url(#b)">
+    <circle cx="40" cy="230" r="120"/>
+    <circle cx="190" cy="270" r="95"/>
+    <circle cx="320" cy="310" r="80"/>
+    <circle cx="110" cy="150" r="70"/>
+  </g>
+  <g fill="#eef2fc" filter="url(#b)">
+    <circle cx="200" cy="320" r="70"/>
+    <circle cx="60" cy="300" r="80"/>
+  </g>
+</g>
+</svg>

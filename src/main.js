@@ -17,13 +17,14 @@ function initApp() {
   });
 
   const header = createHeader({
+    statsElement: stats.element,
     onNewGame: game.start,
     onLeaderboard: () => console.log('Таблица лидеров'),
   });
 
   const main = createElement('main', {
     className: ['main', 'container'],
-    children: [stats.element, board.element],
+    children: [board.element],
   });
 
   document.body.append(header, main);

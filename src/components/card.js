@@ -7,10 +7,17 @@ const CLOSED_LABEL = 'Закрытая карточка';
  * Пока карточка закрыта, её содержимое скрыто и от экранных дикторов.
  */
 export function createCard(cardData) {
+  const frontContent = cardData.image
+    ? createElement('img', {
+        className: 'card__image',
+        attrs: { src: cardData.image, alt: '', draggable: 'false' },
+      })
+    : createElement('span', { className: 'card__symbol', text: cardData.symbol });
+
   const front = createElement('span', {
     className: ['card__face', 'card__face--front'],
-    text: cardData.symbol,
     attrs: { 'aria-hidden': 'true' },
+    children: [frontContent],
   });
 
   const back = createElement('span', {
@@ -30,6 +37,7 @@ export function createCard(cardData) {
   });
 
   element.dataset.uid = cardData.uid;
+  element.style.setProperty('--card-color', cardData.color);
 
   let isOpen = false;
   let isMatched = false;
