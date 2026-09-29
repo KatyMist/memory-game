@@ -402,8 +402,8 @@ button {
   padding: 32px 28px 28px;
   text-align: center;
   background:
-    url('../assets/decor/sparkle.svg') 14% 18% / 22px no-repeat,
-    url('../assets/decor/sparkle.svg') 86% 26% / 16px no-repeat,
+    url('../assets/decor/sparkle.svg') 12% 32px / 22px no-repeat,
+    url('../assets/decor/sparkle.svg') 88% 56px / 16px no-repeat,
     linear-gradient(180deg, #eef2fe 0%, #ffffff 45%);
 }
 
@@ -463,5 +463,126 @@ button {
 @keyframes backdrop-in {
   from {
     opacity: 0;
+  }
+}
+
+/* Иконка в шапке модального окна */
+.modal__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: var(--color-pill);
+  color: var(--color-accent);
+  font-size: 1.8rem;
+}
+
+/* Таблица лидеров */
+.leaderboard {
+  width: 100%;
+  margin: 8px 0 24px;
+}
+
+.leaderboard__empty {
+  padding: 24px 12px;
+  border-radius: 18px;
+  background: var(--color-pill);
+}
+
+.leaderboard__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  font-size: 1.05rem;
+}
+
+.leaderboard__table th {
+  padding: 0 12px 4px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.leaderboard__table td {
+  padding: 6px 12px;
+  background: #f5f7fe;
+}
+
+.leaderboard__table td:first-child {
+  border-radius: 14px 0 0 14px;
+}
+
+.leaderboard__table td:last-child {
+  border-radius: 0 14px 14px 0;
+}
+
+.leaderboard__place {
+  width: 72px;
+}
+
+.leaderboard__moves {
+  font-weight: 700;
+}
+
+.leaderboard__date {
+  color: var(--color-muted);
+}
+
+.leaderboard__badge {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: 700;
+  background: #e3e7f7;
+  color: var(--color-text);
+}
+
+.leaderboard__badge--1 {
+  background: #ffd76a;
+}
+
+.leaderboard__badge--2 {
+  background: #d9dde8;
+}
+
+.leaderboard__badge--3 {
+  background: #f1bd92;
+}
+
+@media (max-width: 520px) {
+  .modal__content {
+    padding: 24px 16px 20px;
+  }
+
+  .modal__title {
+    font-size: 1.6rem;
+  }
+
+  .modal__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 6px;
+    font-size: 1.4rem;
+  }
+
+  .leaderboard {
+    margin-bottom: 16px;
+  }
+
+  .leaderboard__table {
+    font-size: 0.95rem;
+  }
+
+  .leaderboard__table td {
+    padding: 4px 8px;
+  }
+
+  .leaderboard__badge {
+    width: 26px;
+    height: 26px;
   }
 }
