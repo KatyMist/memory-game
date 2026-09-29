@@ -25,3 +25,97 @@ button {
   font: inherit;
   cursor: pointer;
 }
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Кнопки */
+.button {
+  padding: 10px 18px;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.button--primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  background: #2f49b0;
+  border-color: #2f49b0;
+}
+
+/* Хедер */
+.header {
+  background: var(--color-surface);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+}
+
+.header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Основная часть */
+.main {
+  padding-top: 24px;
+  padding-bottom: 32px;
+}
+
+/* Счётчики */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.stats__item {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.stats__value {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* Игровое поле */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  min-height: 200px;
+}
