@@ -1,23 +1,23 @@
 import { createElement } from './utils/create-element.js';
-import { createDeck } from './utils/deck.js';
 import { CARD_IMAGES } from './data/cards.js';
 import { createHeader } from './components/header.js';
 import { createStats } from './components/stats.js';
 import { createBoard } from './components/board.js';
-
-const TOTAL_PAIRS = CARD_IMAGES.length;
+import { createGame } from './game/game.js';
 
 function initApp() {
-  const stats = createStats(TOTAL_PAIRS);
+  const stats = createStats(CARD_IMAGES.length);
   const board = createBoard();
 
-  function startGame() {
-    board.render(createDeck(CARD_IMAGES));
-    stats.update({ moves: 0, pairs: 0 });
-  }
+  const game = createGame({
+    images: CARD_IMAGES,
+    board,
+    stats,
+    onWin: (moves) => console.log(`Победа за ${moves} ходов`),
+  });
 
   const header = createHeader({
-    onNewGame: startGame,
+    onNewGame: game.start,
     onLeaderboard: () => console.log('Таблица лидеров'),
   });
 
@@ -27,7 +27,7 @@ function initApp() {
   });
 
   document.body.append(header, main);
-  startGame();
+  game.start();
 }
 
 initApp();

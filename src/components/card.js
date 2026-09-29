@@ -31,19 +31,34 @@ export function createCard(cardData) {
 
   element.dataset.uid = cardData.uid;
 
+  let isOpen = false;
+  let isMatched = false;
+
   function open() {
+    isOpen = true;
     element.classList.add('card--open');
     element.setAttribute('aria-label', cardData.name);
   }
 
   function close() {
+    isOpen = false;
     element.classList.remove('card--open');
     element.setAttribute('aria-label', CLOSED_LABEL);
   }
 
   function markMatched() {
+    isMatched = true;
     element.classList.add('card--matched');
+    element.setAttribute('aria-disabled', 'true');
   }
 
-  return { element, data: cardData, open, close, markMatched };
+  return {
+    element,
+    data: cardData,
+    open,
+    close,
+    markMatched,
+    isOpen: () => isOpen,
+    isMatched: () => isMatched,
+  };
 }

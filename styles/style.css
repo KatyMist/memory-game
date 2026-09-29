@@ -180,3 +180,8 @@ button {
     gap: 8px;
   }
 }
+
+.card--matched,
+.card--open {
+  cursor: default;
+}
