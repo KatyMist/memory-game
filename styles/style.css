@@ -12,7 +12,7 @@
   --color-accent: #6b82ee;
   --color-accent-dark: #5870e2;
   --color-pill: #eef1fb;
-  --radius-card: 18px;
+  --radius-card: 22px;
   --radius-pill: 999px;
   --shadow-soft: 0 8px 24px rgb(107 130 238 / 0.18);
   font-family: 'Balsamiq Sans', 'Comic Sans MS', system-ui, sans-serif;
@@ -211,16 +211,17 @@ button {
 
 /* Основная часть */
 .main {
-  padding-top: 40px;
-  padding-bottom: 48px;
+  padding-top: 32px;
+  padding-bottom: 40px;
 }
 
 /* Игровое поле */
 .board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(8px, 2vw, 18px);
-  width: min(100%, 620px);
+  gap: clamp(8px, 2vw, 22px);
+  /* Поле квадратное: подстраиваем ширину под высоту экрана, но не меньше 520px и не больше 820px */
+  width: min(100%, 820px, max(520px, calc(100svh - 150px)));
   margin: 0 auto;
 }
 
@@ -294,7 +295,7 @@ button {
 }
 
 .card__symbol {
-  font-size: clamp(2rem, 8vw, 4.2rem);
+  font-size: clamp(2rem, 9vw, 5.5rem);
   line-height: 1;
 }
 
